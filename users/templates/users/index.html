@@ -1,5 +1,9 @@
 {% extends 'users/layout.html' %}
 
 {% block body %}
-hello
+    <h1>Attendance System</h1>
+    <p>Attendance System is a web application that allows you to manage your attendance. You can add, edit, delete and view your attendance. You can also view your attendance history.</p>
+    <a href="{% url 'register' %}"> Register </a> <br>
+    <a href="{% url 'login' %}"> Login </a>
+
 {% endblock body %}
