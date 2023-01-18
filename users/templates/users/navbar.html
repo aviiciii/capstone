@@ -23,11 +23,27 @@
                 </li>
             {% endif %}
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'index' %}">All Posts</a>
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
             {% if user.is_authenticated %}
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    <a class="nav-link" href="{% url 'add_student' %}">Create Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Assign Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Assign Timetable</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Mark Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">View Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: #d1352a;" href="{% url 'logout' %}">Log Out</a>
                 </li>
             {% else %}
                 <li class="nav-item">
