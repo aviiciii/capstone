@@ -43,7 +43,7 @@ class Class(models.Model):
     enrolled_year = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
     section = models.CharField(max_length=100, null=True, blank=True)
-    students = models.ManyToManyField('Student')
+    students = models.ManyToManyField('Student', blank=True)
 
     class Meta:
         verbose_name_plural = 'Classes'

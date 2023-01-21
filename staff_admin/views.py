@@ -7,7 +7,9 @@ from django.db import IntegrityError
 
 # json request
 from django.http import JsonResponse
+from django.http import HttpResponse
 import json
+from django.core import serializers
 
 # pip install panimalar
 from rollno import isvalid
@@ -221,22 +223,21 @@ def get_students_for_class_assign(request, class_id):
     if request.method == 'POST':
 
         classobj = Class.objects.get(id=class_id)
+
         enrolled_year = classobj.enrolled_year
         dept = classobj.dept
 
-        students = Student.objects.filter(enrolled_year=enrolled_year, dept=dept, studying=True, class__isnull=True)
-
-        print (students)
-
-        # get data
-        data = json.loads(request.body)
+        # gets students of enrolled year and dept who are studying and not assigned to any class
+        student_list = [ student.pk.upper() for student in Student.objects.filter(enrolled_year=enrolled_year, dept=dept, studying=True, class__isnull=True) ]
+        present_students = [ student.pk.upper() for student in classobj.students.all() ]
         
-        
-        
+    
         return JsonResponse({
             "message":"Change Successful",
-            "data": data["content"]
+            "students": student_list,
+            "present_students": present_students,
         })
+    
     return JsonResponse({
         "message":"GET request not allowed",
     })
