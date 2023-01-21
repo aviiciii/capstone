@@ -5,6 +5,10 @@ from django.contrib import messages
 from capstone.settings import REDIRECT_LOGIN_URL
 from django.db import IntegrityError
 
+# json request
+from django.http import JsonResponse
+import json
+
 # pip install panimalar
 from rollno import isvalid
 
@@ -213,6 +217,39 @@ def add_class(request):
     return render(request, 'staff_admin/class/add_class.html')
 
 
+def get_students_for_class_assign(request, class_id):
+    if request.method == 'POST':
+
+        classobj = Class.objects.get(id=class_id)
+        enrolled_year = classobj.enrolled_year
+        dept = classobj.dept
+
+        students = Student.objects.filter(enrolled_year=enrolled_year, dept=dept, studying=True, class__isnull=True)
+
+        print (students)
+
+        # get data
+        data = json.loads(request.body)
+        
+        
+        
+        return JsonResponse({
+            "message":"Change Successful",
+            "data": data["content"]
+        })
+    return JsonResponse({
+        "message":"GET request not allowed",
+    })
+
+
+@login_required(login_url=REDIRECT_LOGIN_URL)
+def assign_student_to_class(request):
+
+    classes = Class.objects.all()
+
+    context = {'classes': classes}
+
+    return render(request, 'staff_admin/class/assign_students_to_class.html', context)
 
 
 
@@ -227,9 +264,6 @@ def add_class(request):
 
 
 
-
-def assign_student_to_batches(request):
-    pass
 
 def assign_courses_to_batches(request):
     pass

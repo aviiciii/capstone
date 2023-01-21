@@ -7,6 +7,15 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
 
 def index(request):
+    if request.user.is_authenticated:
+
+        if request.user.role == 'student':
+            pass
+        elif request.user.role == 'professor':
+            return redirect('professor_home')
+        elif request.user.role == 'staff_admin':
+            return redirect('admin_home')
+        
     return render(request, 'users/index.html')
 
 def register(request):

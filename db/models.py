@@ -49,7 +49,7 @@ class Class(models.Model):
         verbose_name_plural = 'Classes'
 
     def __str__(self):
-        return f'{self.dept}: {self.enrolled_year}-{self.section}'
+        return f'{self.dept.upper()}: {self.enrolled_year}-{self.section.upper()}'
     
 
 class Semester(models.Model):
@@ -96,10 +96,10 @@ class TimeTable(models.Model):
     
 
 
-class Attendance(models.Model):
-    id = models.AutoField(primary_key=True)
-    subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
-    student = models.ForeignKey('Student', on_delete=models.CASCADE)
-    date = models.DateField()
-    present = models.BooleanField(default=False)
+# class Attendance(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
+#     student = models.ForeignKey('Student', on_delete=models.CASCADE)
+#     date = models.DateField()
+#     present = models.BooleanField(default=False)
     

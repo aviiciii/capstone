@@ -1,0 +1,48 @@
+{% extends 'users/layout.html' %}
+{% load static %}
+
+
+{% block navbar %}
+    {% include 'staff_admin/navbar.html' %}
+{% endblock navbar %}
+
+
+
+{% block body %}
+<h1> Assign Students to Class </h1>
+
+<h3> Create class <a href='#'>here</a>.</h3>
+
+<br>
+
+<div class="select_class">
+    {% csrf_token %}
+    <label for="class">Choose a class:</label>
+    <select name="class" id="class">
+    {% for class in classes %}
+        <option value="{{class.pk}}">{{class}}</option>
+    {% endfor %}
+    </select>
+    <button class="btn btn-outline-primary btn-sm" id="select-class-btn">Select</button>
+</div>
+<br>
+<br>
+
+<form action="{% url 'add_class' %}" method="post">
+    
+    {% csrf_token %}
+    <label>Department (eg. CSBS)</label> &nbsp
+    <input type="text" name="department"  required> <br> <br>
+
+    <label>Enrolled Year</label> &nbsp
+    <input type="text" name="enrolled_year"  required> <br> <br>
+
+    <label>Section</label> &nbsp
+    <input type="text" name="section"  required> <br> <br>
+
+    <input type="submit" value="Create Class">
+{% endblock body%}
+
+{% block script %}
+    <script src="{% static 'staff_admin/script.js' %}"></script>
+{% endblock script %}
