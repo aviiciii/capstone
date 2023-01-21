@@ -152,6 +152,7 @@ def add_professor(request):
     return render(request, 'staff_admin/professor/add_professor.html')
 
 
+@login_required(login_url=REDIRECT_LOGIN_URL)
 def add_subject(request):
     if request.method == 'POST':
         print(request.POST)
@@ -183,6 +184,33 @@ def add_subject(request):
 
     return render(request, 'staff_admin/subject/add_subject.html')
 
+@login_required(login_url=REDIRECT_LOGIN_URL)
+def add_class(request):
+    if request.method == 'POST':
+        print(request.POST)
+        # get data
+        enrolled_year = request.POST['enrolled_year'].strip().lower()
+        dept = request.POST['department'].strip().lower()
+        section = request.POST['section'].strip().lower()
+        
+
+        try:
+            class_obj = Class.objects.create(
+                enrolled_year=enrolled_year,
+                dept=dept,
+                section=section,
+            )
+
+            class_obj.save()
+            print('Class created')
+        except:
+            messages.error(request, 'Something went wrong while creating class')
+            return render(request, 'staff_admin/class/add_class.html')
+
+        messages.success(request, 'Class added successfully')
+
+
+    return render(request, 'staff_admin/class/add_class.html')
 
 
 
@@ -199,9 +227,6 @@ def add_subject(request):
 
 
 
-
-def add_batches(request):
-    pass
 
 def assign_student_to_batches(request):
     pass

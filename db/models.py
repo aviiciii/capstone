@@ -35,7 +35,7 @@ class Student(models.Model):
     studying = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.user.username
+        return self.roll_no
     
 
 class Class(models.Model):
@@ -49,7 +49,7 @@ class Class(models.Model):
         verbose_name_plural = 'Classes'
 
     def __str__(self):
-        return f'{self.enrolled_year}: {self.dept}-{self.section}'
+        return f'{self.dept}: {self.enrolled_year}-{self.section}'
     
 
 class Semester(models.Model):
