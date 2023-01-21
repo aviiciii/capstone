@@ -95,11 +95,5 @@ class TimeTable(models.Model):
     completed = models.BooleanField(default=False)
     
 
-
-# class Attendance(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
-#     student = models.ForeignKey('Student', on_delete=models.CASCADE)
-#     date = models.DateField()
-#     present = models.BooleanField(default=False)
-    
+    def __str__(self):
+        return f'{self.subject_class} ({self.day}, {self.period})'
