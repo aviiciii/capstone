@@ -28,10 +28,10 @@
 <br>
 <br>
 
-<p id="students-addable">Addable <br></p>
+<div id="students-addable">Addable</div>
 
 <br> <br>
-<p id="students-present">Added <br></p>
+<div id="students-present">Added <br></div>
 
 
 
@@ -41,16 +41,15 @@
 <form action="{% url 'add_class' %}" method="post">
     
     {% csrf_token %}
-    <label>Department (eg. CSBS)</label> &nbsp
-    <input type="text" name="department"  required> <br> <br>
+    <div class="input-group mb-3" style="width:30%">
+        <div class="input-group-text">
+            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+        </div>
+        <input type="text" class="form-control" aria-label="Disabled input Text input with checkbox" disabled readonly style="width: 80px;">
+    </div>
 
-    <label>Enrolled Year</label> &nbsp
-    <input type="text" name="enrolled_year"  required> <br> <br>
+</form>
 
-    <label>Section</label> &nbsp
-    <input type="text" name="section"  required> <br> <br>
-
-    <input type="submit" value="Create Class">
 {% endblock body%}
 
 {% block script %}

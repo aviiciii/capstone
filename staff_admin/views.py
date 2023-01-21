@@ -219,10 +219,11 @@ def add_class(request):
     return render(request, 'staff_admin/class/add_class.html')
 
 
+@login_required(login_url=REDIRECT_LOGIN_URL)
 def get_students_for_class_assign(request, class_id):
     if request.method == 'POST':
 
-        classobj = Class.objects.get(id=class_id)
+        classobj = Class.objects.get(pk=class_id)
 
         enrolled_year = classobj.enrolled_year
         dept = classobj.dept
