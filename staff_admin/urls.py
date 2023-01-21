@@ -7,7 +7,7 @@ urlpatterns = [
     # path('profile/', views.profile, name='professor_profile'),
     path('add/student', views.add_student, name='add_student'),
     path('add/professor', views.add_professor, name='add_professor'),
-    
+    path('add/subject', views.add_subject, name='add_subject'),
 ]
 
 # to do

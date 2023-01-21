@@ -3,6 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from capstone.settings import REDIRECT_LOGIN_URL
+from django.db import IntegrityError
+
+# pip install panimalar
+from rollno import isvalid
 
 # db
 from users.models import User
@@ -13,7 +17,7 @@ from db.models import Professor, Student, Class, Semester, Subject
 def index(request):
     return render(request, 'staff_admin/index.html')
 
-
+# ----------------- ADD -----------------
 
 @login_required(login_url=REDIRECT_LOGIN_URL)
 def add_student(request):
@@ -31,6 +35,12 @@ def add_student(request):
 
         # join firstname and lastname to create username
         username = f'{firstname} {lastname}'
+        
+        # check if rollno is valid
+        if not isvalid(rollno):
+            messages.error(request, 'Invalid roll number')
+            return render(request, 'staff_admin/student/add_students.html')
+
 
         try:
             # create user for student
@@ -76,6 +86,8 @@ def add_student(request):
     
     return render(request, 'staff_admin/student/add_students.html')
 
+
+@login_required(login_url=REDIRECT_LOGIN_URL)
 def add_professor(request):
     if request.method == 'POST':
         print(request.POST)
@@ -140,6 +152,36 @@ def add_professor(request):
     return render(request, 'staff_admin/professor/add_professor.html')
 
 
+def add_subject(request):
+    if request.method == 'POST':
+        print(request.POST)
+        # get data
+        name = request.POST['subjectname'].strip().lower().capitalize()
+        code = request.POST['subjectcode'].strip().lower()
+        regulation = request.POST['regulation'].strip().lower()
+        credits = str(request.POST['credits'].strip())
+        
+
+        try:
+            subject_obj = Subject.objects.create(
+                name=name,
+                code=code,
+                regulation_year=regulation,
+                credits=credits,
+            )
+
+            subject_obj.save()
+            print('Subject created')
+        except:
+            messages.error(request, 'Something went wrong while creating subject')
+            return render(request, 'staff_admin/subject/add_subject.html')
+
+        messages.success(request, 'Subject added successfully')
+        return render(request, 'staff_admin/subject/add_subject.html')
+
+
+
+    return render(request, 'staff_admin/subject/add_subject.html')
 
 
 
@@ -157,9 +199,6 @@ def add_professor(request):
 
 
 
-
-def add_courses(request):
-    pass
 
 def add_batches(request):
     pass

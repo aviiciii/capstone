@@ -34,26 +34,60 @@
                         <li><a class="dropdown-item" href="{% url 'add_student' %}">Student</a></li>
                         <li><a class="dropdown-item" href="{% url 'add_professor' %}">Professor</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'add_subject' %}">Subject</a></li>
+                        <li><a class="dropdown-item" href="#">Class</a></li>
+                        <li><a class="dropdown-item" href="#">Timetable</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Edit
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Student</a></li>
+                        <li><a class="dropdown-item" href="#">Professor</a></li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Course</a></li>
                         <li><a class="dropdown-item" href="#">Class</a></li>
                         <li><a class="dropdown-item" href="#">Timetable</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Create Student</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    View
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Students</a></li>
+                        <li><a class="dropdown-item" href="#">Professors</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Courses</a></li>
+                        <li><a class="dropdown-item" href="#">Classes</a></li>
+                        <li><a class="dropdown-item" href="#">Timetables</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Assign Classes</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Assign
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Student to Class</a></li>
+                        <li><a class="dropdown-item" href="#">Professor to Class</a></li>
+                        <li><a class="dropdown-item" href="#">Class to Timetable</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Assign Timetable</a>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Attendance
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Mark Attendance</a></li>
+                        <li><a class="dropdown-item" href="#">View Attendance</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Mark Attendance</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">View Attendance</a>
-                </li>
+
+
+                
                 <li class="nav-item">
                     <a class="nav-link" style="color: #d1352a;" href="{% url 'logout' %}">Log Out</a>
                 </li>

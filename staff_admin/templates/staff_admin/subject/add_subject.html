@@ -1,0 +1,28 @@
+{% extends 'users/layout.html' %}
+
+{% block navbar %}
+    {% include 'staff_admin/navbar.html' %}
+{% endblock navbar %}
+
+
+
+{% block body %}
+<h1> Create Subject </h1>
+
+
+<form action="{% url 'add_subject' %}" method="post">
+    
+    {% csrf_token %}
+    <label>Subject Code</label> &nbsp
+    <input type="text" name="subjectcode" placeholder="Subject Code" required> <br> <br>
+    <label>Subject Name</label> &nbsp
+    <input type="text" name="subjectname" placeholder="Subject Name" required> <br> <br>
+    <label>Regulation</label> &nbsp
+    <input type="text" name="regulation" placeholder="Regulation" required> <br> <br>
+    <label>Credits</label> &nbsp
+    <input type="number" min="1" name="credits" placeholder="Credits" required> <br> <br>
+
+    
+
+    <input type="submit" value="Add Subject">
+{% endblock body%}

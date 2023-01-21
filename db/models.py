@@ -3,6 +3,7 @@ from users.models import User
 
 # Create your models here.
 class Professor(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     qualification = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
@@ -15,6 +16,7 @@ class Professor(models.Model):
     
 
 class LabAssistant(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     qualification = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
@@ -25,8 +27,8 @@ class LabAssistant(models.Model):
 
 
 class Student(models.Model):
+    roll_no = models.CharField(max_length=100, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    roll_no = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
     enrolled_year = models.CharField(max_length=100, null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
@@ -37,6 +39,7 @@ class Student(models.Model):
     
 
 class Class(models.Model):
+    id = models.AutoField(primary_key=True)
     enrolled_year = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
     section = models.CharField(max_length=100, null=True, blank=True)
@@ -50,6 +53,7 @@ class Class(models.Model):
     
 
 class Semester(models.Model):
+    id = models.AutoField(primary_key=True)
     class_name = models.ForeignKey('Class', on_delete=models.CASCADE)
     number = models.CharField(max_length=100, null=True, blank=True)
     subjects = models.ManyToManyField('Subject')
@@ -59,8 +63,8 @@ class Semester(models.Model):
     
 
 class Subject(models.Model):
-    regulation_year = models.CharField(max_length=10, null=True, blank=True)
     code = models.CharField(primary_key=True, max_length=100)
+    regulation_year = models.CharField(max_length=10, null=True, blank=True)
     name = models.CharField(max_length=100, null=True, blank=True)
     credits = models.CharField(max_length=100, null=True, blank=True)
     # type ---- Theory, Lab, Project
@@ -71,6 +75,7 @@ class Subject(models.Model):
     
 
 class SubjectClass(models.Model):
+    id = models.AutoField(primary_key=True)
     semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
     subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
     class_name = models.ForeignKey('Class', on_delete=models.CASCADE)
@@ -82,6 +87,7 @@ class SubjectClass(models.Model):
 
 
 class TimeTable(models.Model):
+    id = models.AutoField(primary_key=True)
     subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
     date=models.DateField()
     day = models.CharField(choices=(('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'), ('Friday', 'Friday'), ('Saturday', 'Saturday')), max_length=100, null=True, blank=True)
@@ -91,6 +97,7 @@ class TimeTable(models.Model):
 
 
 class Attendance(models.Model):
+    id = models.AutoField(primary_key=True)
     subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
     student = models.ForeignKey('Student', on_delete=models.CASCADE)
     date = models.DateField()
