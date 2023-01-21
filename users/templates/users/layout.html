@@ -19,7 +19,13 @@
 
 </head>
 <body>
-    {% include 'users/navbar.html' %}
+    {% block navbar %}
+    
+    {% endblock navbar %}
+
+    
+
+
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}" role="alert">

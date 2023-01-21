@@ -1,0 +1,32 @@
+{% extends 'users/layout.html' %}
+
+{% block navbar %}
+    {% include 'staff_admin/navbar.html' %}
+{% endblock navbar %}
+
+
+
+{% block body %}
+<h1> Create Student </h1>
+
+
+<form action="{% url 'add_student' %}" method="post">
+    
+    {% csrf_token %}
+    <label>First Name</label> &nbsp
+    <input type="text" name="firstname" placeholder="Firstname" required> <br> <br>
+    <label>Last Name</label> &nbsp
+    <input type="text" name="lastname" placeholder="Lastname" required> <br> <br>
+    <label>Email</label> &nbsp
+    <input type="text" name="email" placeholder="Email" required> <br> <br>
+    <label>Roll Number</label> &nbsp
+    <input type="text" name="rollno" placeholder="Roll No" required> <br> <br>
+    <label>Department</label> &nbsp
+    <input type="text" name="dept" placeholder="Dept eg.(CSE, CSBS)" required> <br> <br>
+    <label>Date of Birth</label> &nbsp
+    <input type="date" name="dob" placeholder="DOB" required> <br> <br>
+    <label>Enrolled Year</label> &nbsp
+    <input type="text" name="enrolled_year" placeholder="Enrolled Year" required> <br> <br>
+
+    <input type="submit" value="Add Student">
+{% endblock body%}
