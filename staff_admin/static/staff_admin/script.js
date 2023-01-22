@@ -7,6 +7,7 @@ addEventListener('DOMContentLoaded', function() {
         console.log('button clicked')
         
         const class_id = document.querySelector('#class').value;
+        const action = document.querySelector('#action').value;
         let csrftoken = document.querySelector("input[name='csrfmiddlewaretoken']").value;
 
 
@@ -23,72 +24,99 @@ addEventListener('DOMContentLoaded', function() {
             students = result["students"];
             present_students = result["present_students"];
 
-            for (let i = 0; i < students.length; i++) {
-                const student = students[i];
+            if (action === "add") {
+                console.log("add")
 
-                const inpt1 = document.createElement("input");
-                inpt1.className="form-check-input mt-0";
-                inpt1.type="checkbox";
-                inpt1.value=student;
-                inpt1.ariaLabel="Checkbox for following text input";
+                for (let i = 0; i < students.length; i++) {
+                    const student = students[i];
 
-                const inpt2 = document.createElement("input");
-                inpt2.className="form-control";
-                inpt2.type="text";
-                inpt2.value=student;
-                inpt2.ariaLabel="Disabled input text input with checkbox";
-                inpt2.disabled="true";
-                inpt2.readOnly="true";
+                    const inpt1 = document.createElement("input");
+                    inpt1.className="form-check-input mt-0";
+                    inpt1.type="checkbox";
+                    inpt1.value=student;
+                    inpt1.ariaLabel="Checkbox for following text input";
 
-                const innerdiv = document.createElement("div");
-                innerdiv.className="input-group-text";
-                innerdiv.appendChild(inpt1);
+                    const inpt2 = document.createElement("input");
+                    inpt2.className="form-control";
+                    inpt2.type="text";
+                    inpt2.value=student;
+                    inpt2.ariaLabel="Disabled input text input with checkbox";
+                    inpt2.disabled="true";
+                    inpt2.readOnly="true";
 
-
-
-                const div = document.createElement("div");
-                div.className="input-group mb-3";
-                div.style="width: 80%;"
-                div.appendChild(innerdiv);
-                div.appendChild(inpt2)
+                    const innerdiv = document.createElement("div");
+                    innerdiv.className="input-group-text";
+                    innerdiv.appendChild(inpt1);
 
 
-                document.getElementById('students-addable').appendChild(div);
-            }
-            for (let i = 0; i < present_students.length; i++) {
-                const student = present_students[i];
 
-            
+                    const div = document.createElement("div");
+                    div.className="input-group mb-3";
+                    div.style="width: 30%;"
+                    div.appendChild(innerdiv);
+                    div.appendChild(inpt2)
+
+
+                    document.getElementById('students-addable').appendChild(div);
+
+                }
+
+                if (students.length === 0) {
+                    document.getElementById('students-addable').innerHTML = "No students present";
+                    document.getElementById('add-students-btn').disabled = true;
+
+                }
+
+                // set display to block
+                document.getElementById('form-add-students').style.display = "block";
+                document.getElementById('form-remove-students').style.display = "none";
+
+            } else {
+                console.log("remove")
+                for (let i = 0; i < present_students.length; i++) {
+                    const student = present_students[i];
+
                 
-                const inpt1 = document.createElement("input");
-                inpt1.className="form-check-input mt-0";
-                inpt1.type="checkbox";
-                inpt1.value=student;
-                inpt1.ariaLabel="Checkbox for following text input";
+                    
+                    const inpt1 = document.createElement("input");
+                    inpt1.className="form-check-input mt-0";
+                    inpt1.type="checkbox";
+                    inpt1.value=student;
+                    inpt1.ariaLabel="Checkbox for following text input";
 
-                const inpt2 = document.createElement("input");
-                inpt2.className="form-control";
-                inpt2.type="text";
-                inpt2.value=student;
-                inpt2.ariaLabel="Disabled input text input with checkbox";
-                inpt2.disabled="true";
-                inpt2.readOnly="true";
+                    const inpt2 = document.createElement("input");
+                    inpt2.className="form-control";
+                    inpt2.type="text";
+                    inpt2.value=student;
+                    inpt2.ariaLabel="Disabled input text input with checkbox";
+                    inpt2.disabled="true";
+                    inpt2.readOnly="true";
 
-                const innerdiv = document.createElement("div");
-                innerdiv.className="input-group-text";
-                innerdiv.appendChild(inpt1);
-
-
-
-                const div = document.createElement("div");
-                div.className="input-group mb-3";
-                div.style="width: 80%;"
-                div.appendChild(innerdiv);
-                div.appendChild(inpt2)
+                    const innerdiv = document.createElement("div");
+                    innerdiv.className="input-group-text";
+                    innerdiv.appendChild(inpt1);
 
 
 
-                document.getElementById('students-present').appendChild(div);
+                    const div = document.createElement("div");
+                    div.className="input-group mb-3";
+                    div.style="width: 30%;"
+                    div.appendChild(innerdiv);
+                    div.appendChild(inpt2)
+
+
+
+                    document.getElementById('students-present').appendChild(div);
+                }
+
+                if (present_students.length === 0) {
+                    document.getElementById('students-present').innerHTML = "No students present";
+                    document.getElementById('remove-students-btn').disabled = true;
+                }
+
+                // set display to block
+                document.getElementById('form-remove-students').style.display = "block";
+                document.getElementById('form-add-students').style.display = "none";
             }
 
 

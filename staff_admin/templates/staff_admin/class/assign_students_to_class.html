@@ -17,38 +17,60 @@
 
 <div class="select_class">
     {% csrf_token %}
-    <label for="class">Choose a class:</label>
+    <label for="class">Choose a class:</label> &nbsp
     <select name="class" id="class">
     {% for class in classes %}
         <option value="{{class.pk}}">{{class}}</option>
     {% endfor %}
     </select>
+    <br> <br>
+
+    <label for="action">Action:</label> &nbsp
+    <select name="action" id="action">
+        <option value="add">Add Students</option>
+        <option value="remove">Remove Students</option>
+    </select>
+
+    <br> <br>
     <button class="btn btn-outline-primary btn-sm" id="select-class-btn">Select</button>
 </div>
 <br>
 <br>
 
-<div id="students-addable">Addable</div>
-
-<br> <br>
-<div id="students-present">Added <br></div>
 
 
 
 
 
 
-<form action="{% url 'add_class' %}" method="post">
+
+<form id="form-remove-students" action="{% url 'add_class' %}" method="post" style="display:none;">
     
     {% csrf_token %}
-    <div class="input-group mb-3" style="width:30%">
+
+    <div id="students-present"><h3> Students Present in Class </h3> <br></div>
+    
+    <br>
+    <button class="btn btn-outline-primary btn-sm" id="remove-students-btn">Remove Students</button>
+</form>
+
+<form id="form-add-students" action="{% url 'add_class' %}" method="post" style="display:none;">
+
+    {% csrf_token %}
+
+    <div id="students-addable"><h3> Assign Students to Class </h3> <br></div>
+
+    <br>
+    <button class="btn btn-outline-primary btn-sm" id="add-students-btn">Add Students</button>
+
+</form>
+
+{% comment %} <div class="input-group mb-3" style="width:30%">
         <div class="input-group-text">
             <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
         </div>
         <input type="text" class="form-control" aria-label="Disabled input Text input with checkbox" disabled readonly style="width: 80px;">
-    </div>
-
-</form>
+    </div> {% endcomment %}
 
 {% endblock body%}
 
