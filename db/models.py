@@ -59,7 +59,7 @@ class Semester(models.Model):
     subjects = models.ManyToManyField('Subject')
 
     def __str__(self):
-        return f'{self.number} ({self.subjects})'
+        return f'{self.class_name} - {self.number}'
     
 
 class Subject(models.Model):

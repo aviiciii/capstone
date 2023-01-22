@@ -295,7 +295,60 @@ def assign_student_to_class(request):
     return render(request, 'staff_admin/class/assign_students_to_class.html', context)
 
 
+@login_required(login_url=REDIRECT_LOGIN_URL)
+def add_semester(request):
+    if request.method == 'POST':
 
+        # get data
+        class_id = request.POST['class_id']
+        semester_number = str(request.POST['semester']).strip().lower()
+        # subjects
+        subjects= []
+        for i in range(1,11):
+            subject = request.POST['subject'+str(i)].strip().lower()
+            if subject != '':
+                if subject in subjects:
+                    messages.error(request, 'Subject ' + subject.upper() + ' is repeated')
+                    return render(request, 'staff_admin/class/add_semester.html')
+                subjects.append(subject)
+        
+        # get class object
+        try:
+            classobj = Class.objects.get(pk=class_id)
+        except:
+            messages.error(request, 'Class not found')
+            return render(request, 'staff_admin/class/add_semester.html')
+        
+        # check if semester already exists
+        if Semester.objects.filter(number=semester_number, class_name=classobj).exists():
+            messages.error(request, 'Semester already exists')
+            return render(request, 'staff_admin/class/add_semester.html')
+
+        try:
+            new_semester = Semester.objects.create(
+                number=semester_number,
+                class_name=classobj,
+            )
+            for subject in subjects:
+                subject_obj = Subject.objects.get(pk=subject)
+                new_semester.subjects.add(subject_obj)
+
+            new_semester.save()
+            print(f'Semester created successfully with {len(subjects)} subjects')
+        except:
+            messages.error(request, 'Something went wrong while creating semester')
+            return render(request, 'staff_admin/class/add_semester.html')
+
+        messages.success(request, f'Semester created successfully with {len(subjects)} subjects')
+        return render(request, 'staff_admin/class/add_semester.html')
+
+    classes = Class.objects.all().order_by('enrolled_year', 'dept', 'section')
+    
+
+    subjects = Subject.objects.all().order_by('regulation_year','name')
+
+    context = {'classes': classes, 'subjects': subjects}
+    return render(request, 'staff_admin/class/add_semester.html', context)
 
 
 

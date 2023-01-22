@@ -1,0 +1,114 @@
+{% extends 'users/layout.html' %}
+
+{% block navbar %}
+    {% include 'staff_admin/navbar.html' %}
+{% endblock navbar %}
+
+
+
+{% block body %}
+<h1> Create Semester </h1>
+
+<h3> Go <a href="{% url 'add_class' %}">here</a> to create class. </h3>
+<h3> Go <a href="{% url 'add_subject' %}">here</a> to create subject. </h3>
+
+<br>
+
+<form action="{% url 'add_semester' %}" method="post">
+    
+    {% csrf_token %}
+    <label>Class:</label> &nbsp
+    <select name="class_id" required>
+        <option value="">Select Class</option>
+        {% for class in classes %}
+            <option value="{{class.id}}">{{class}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Semester Number:</label> &nbsp
+    <input type="number" min="0" max="20" name="semester" required> <br> <br>
+
+    <label>Subject 1</label> &nbsp
+    <select name="subject1">
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 2</label> &nbsp
+    <select name="subject2" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 3</label> &nbsp
+    <select name="subject3" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 4</label> &nbsp
+    <select name="subject4" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+    
+    <label>Subject 5</label> &nbsp
+    <select name="subject5" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 6</label> &nbsp
+    <select name="subject6" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 7</label> &nbsp
+    <select name="subject7" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 8</label> &nbsp
+    <select name="subject8" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 9</label> &nbsp
+    <select name="subject9" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    <label>Subject 10</label> &nbsp
+    <select name="subject10" >
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+            <option value="{{subject.pk}}">{{subject.pk.upper}}</option>
+        {% endfor %}
+    </select> <br> <br>
+
+    
+
+    <input type="submit" value="Create Semester">
+{% endblock body%}
