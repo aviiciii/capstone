@@ -351,6 +351,14 @@ def add_semester(request):
     return render(request, 'staff_admin/class/add_semester.html', context)
 
 
+@login_required(login_url=REDIRECT_LOGIN_URL)
+def assign_professor_to_subject(request):
+
+    classes = Class.objects.all().order_by('enrolled_year', 'dept', 'section')
+    
+    context= {'classes': classes}
+
+    return render(request, 'staff_admin/class/assign_professor_to_subject.html', context)
 
 
 
@@ -361,11 +369,6 @@ def add_semester(request):
 
 
 
-def assign_courses_to_batches(request):
-    pass
-
-def assign_professor_to_subjects(request):
-    pass
 
 def make_timetable(request):
     pass

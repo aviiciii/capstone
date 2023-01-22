@@ -57,6 +57,7 @@ class Semester(models.Model):
     class_name = models.ForeignKey('Class', on_delete=models.CASCADE)
     number = models.CharField(max_length=100, null=True, blank=True)
     subjects = models.ManyToManyField('Subject')
+    current = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.class_name} - {self.number}'

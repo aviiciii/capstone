@@ -13,6 +13,8 @@ urlpatterns = [
     # assign stuents to class
     path('assign/student_to_class', views.assign_student_to_class, name='assign_student_to_class'),
     path('assign/class/<int:class_id>', views.get_students_for_class_assign, name='get_students_for_class_assign'),
+    # assign professor to subject
+    path('assign/professor_to_subject', views.assign_professor_to_subject, name='assign_professor_to_subject'),
 ]
 
 # to do
