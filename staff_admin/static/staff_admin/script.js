@@ -34,6 +34,7 @@ addEventListener('DOMContentLoaded', function() {
                     inpt1.className="form-check-input mt-0";
                     inpt1.type="checkbox";
                     inpt1.value=student;
+                    inpt1.name="students";
                     inpt1.ariaLabel="Checkbox for following text input";
 
                     const inpt2 = document.createElement("input");
@@ -59,6 +60,7 @@ addEventListener('DOMContentLoaded', function() {
 
                     document.getElementById('students-addable').appendChild(div);
 
+
                 }
 
                 if (students.length === 0) {
@@ -66,6 +68,9 @@ addEventListener('DOMContentLoaded', function() {
                     document.getElementById('add-students-btn').disabled = true;
 
                 }
+
+                // add class_id to form
+                document.getElementById('class-id-add-form').value = class_id;
 
                 // set display to block
                 document.getElementById('form-add-students').style.display = "block";
@@ -82,6 +87,7 @@ addEventListener('DOMContentLoaded', function() {
                     inpt1.className="form-check-input mt-0";
                     inpt1.type="checkbox";
                     inpt1.value=student;
+                    inpt1.name="students";
                     inpt1.ariaLabel="Checkbox for following text input";
 
                     const inpt2 = document.createElement("input");
@@ -109,6 +115,9 @@ addEventListener('DOMContentLoaded', function() {
                     document.getElementById('students-present').appendChild(div);
                 }
 
+                // add class_id to form
+                document.getElementById('class-id-remove-form').value = class_id;
+
                 if (present_students.length === 0) {
                     document.getElementById('students-present').innerHTML = "No students present";
                     document.getElementById('remove-students-btn').disabled = true;
@@ -118,7 +127,10 @@ addEventListener('DOMContentLoaded', function() {
                 document.getElementById('form-remove-students').style.display = "block";
                 document.getElementById('form-add-students').style.display = "none";
             }
+            document.getElementById('select-class-btn').disabled = true;
+            // set display to block
 
+            document.getElementById('refresh-class-btn').style.display = "block";
 
 
 

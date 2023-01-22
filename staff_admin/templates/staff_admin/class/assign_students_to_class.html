@@ -33,6 +33,14 @@
 
     <br> <br>
     <button class="btn btn-outline-primary btn-sm" id="select-class-btn">Select</button>
+    <br> <br>
+
+    <!-- Refresh button -->
+
+    <a href="{% url 'assign_student_to_class' %}" style="text-decoration:none;">
+        <button class="btn btn-outline-success btn-sm" id="refresh-class-btn" style="display:none;">Refresh</button>
+    </a>
+    
 </div>
 <br>
 <br>
@@ -42,28 +50,31 @@
 
 
 
-
-
-<form id="form-remove-students" action="{% url 'add_class' %}" method="post" style="display:none;">
-    
-    {% csrf_token %}
-
-    <div id="students-present"><h3> Students Present in Class </h3> <br></div>
-    
-    <br>
-    <button class="btn btn-outline-primary btn-sm" id="remove-students-btn">Remove Students</button>
-</form>
-
-<form id="form-add-students" action="{% url 'add_class' %}" method="post" style="display:none;">
+<form name="add" id="form-add-students" action="{% url 'assign_student_to_class' %}" method="post" style="display:none;">
 
     {% csrf_token %}
+    <input type="hidden" name="class_id" id="class-id-add-form" value="">
 
     <div id="students-addable"><h3> Assign Students to Class </h3> <br></div>
 
     <br>
-    <button class="btn btn-outline-primary btn-sm" id="add-students-btn">Add Students</button>
+    <button name="add" class="btn btn-outline-primary btn-sm" id="add-students-btn" type="submit">Add Students</button>
 
 </form>
+
+<form name="remove" id="form-remove-students" action="{% url 'assign_student_to_class' %}" method="post" style="display:none;">
+    
+    {% csrf_token %}
+    <input type="hidden" name="class_id" id="class-id-remove-form" value="">
+
+
+    <div id="students-present"><h3> Students Present in Class </h3> <br></div>
+    
+    <br>
+    <button name="remove" class="btn btn-outline-primary btn-sm" id="remove-students-btn" type="submit">Remove Students</button>
+</form>
+
+
 
 {% comment %} <div class="input-group mb-3" style="width:30%">
         <div class="input-group-text">

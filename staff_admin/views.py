@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -247,6 +247,47 @@ def get_students_for_class_assign(request, class_id):
 @login_required(login_url=REDIRECT_LOGIN_URL)
 def assign_student_to_class(request):
 
+    if request.method == 'POST':
+        print(request.POST)
+        # get data
+        class_id = request.POST['class_id']
+        student_rollno = request.POST.getlist('students')
+        
+        if student_rollno == []:
+            messages.error(request, 'No students selected')
+            return redirect('assign_student_to_class')
+        
+        if 'add' in request.POST:
+            print('add')
+            classobj = Class.objects.get(pk=class_id)
+            for rollno in student_rollno:
+                studentobj = Student.objects.get(pk=rollno.lower())
+                classobj.students.add(studentobj)
+            classobj.save()
+            messages.success(request, 'Students added successfully')
+            return redirect('assign_student_to_class')
+
+        elif 'remove' in request.POST:
+            print('remove')
+            classobj = Class.objects.get(pk=class_id)
+            for rollno in student_rollno:
+                studentobj = Student.objects.get(pk=rollno.lower())
+                classobj.students.remove(studentobj)
+            classobj.save()
+            messages.success(request, 'Students removed successfully')
+            return redirect('assign_student_to_class')
+        
+        else:
+            print('else')
+            messages.error(request, 'Something went wrong')
+            return redirect('assign_student_to_class')
+        
+        
+        # get class object
+        classobj = Class.objects.get(pk=class_id)
+
+    
+    
     classes = Class.objects.all()
 
     context = {'classes': classes}
