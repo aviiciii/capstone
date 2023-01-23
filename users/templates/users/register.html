@@ -1,5 +1,10 @@
 {% extends 'users/layout.html' %}
 
+{% block navbar %}
+{% include 'users/navbar.html' %}
+{% endblock navbar %}
+
+
 {% block body %}
     <h1>Register</h1>
     <form method="POST" action="{% url 'register' %}">

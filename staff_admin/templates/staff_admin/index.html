@@ -1,0 +1,10 @@
+{% extends 'users/layout.html' %}
+
+{% block navbar %}
+    {% include 'staff_admin/navbar.html' %}
+{% endblock navbar %}
+
+{% block body %}
+<h1> Welcome to the {{ user.username }} profile page </h1>
+
+{% endblock body%}

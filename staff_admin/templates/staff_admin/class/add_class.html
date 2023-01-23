@@ -1,0 +1,29 @@
+{% extends 'users/layout.html' %}
+
+{% block navbar %}
+    {% include 'staff_admin/navbar.html' %}
+{% endblock navbar %}
+
+
+
+{% block body %}
+<h1> Create Class </h1>
+
+<h3> Go <a href="{% url 'assign_student_to_class' %}">here</a> to assign students to class </h3>
+
+<br>
+
+<form action="{% url 'add_class' %}" method="post">
+    
+    {% csrf_token %}
+    <label>Department (eg. CSBS)</label> &nbsp
+    <input type="text" name="department"  required> <br> <br>
+
+    <label>Enrolled Year</label> &nbsp
+    <input type="text" name="enrolled_year"  required> <br> <br>
+
+    <label>Section</label> &nbsp
+    <input type="text" name="section"  required> <br> <br>
+
+    <input type="submit" value="Create Class">
+{% endblock body%}

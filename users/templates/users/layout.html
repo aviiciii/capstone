@@ -13,18 +13,34 @@
     
     <link href="{% static 'users/styles.css' %}" rel="stylesheet">
 
+    <!-- favicon -->
+    <link rel="icon" href="{% static 'users/img/favicon.png' %}" type="image/png"/>
+
 
 
     
 
 </head>
 <body>
-    {% include 'users/navbar.html' %}
+    {% block navbar %}
+    
+    {% endblock navbar %}
+
+    
+
+
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
-                {{ message }}
-            </div>
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% elif message.tags == 'success' %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+            
         {% endfor %}
     {% endif %}
 

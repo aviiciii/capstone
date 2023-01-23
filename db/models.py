@@ -3,16 +3,20 @@ from users.models import User
 
 # Create your models here.
 class Professor(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     qualification = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
     working = models.BooleanField(default=True)
+    dob = models.DateField(null=True, blank=True)
+    joining_year = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
     
 
 class LabAssistant(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     qualification = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
@@ -23,42 +27,45 @@ class LabAssistant(models.Model):
 
 
 class Student(models.Model):
+    roll_no = models.CharField(max_length=100, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    roll_no = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
     enrolled_year = models.CharField(max_length=100, null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     studying = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.user.username
+        return self.roll_no
     
 
 class Class(models.Model):
+    id = models.AutoField(primary_key=True)
     enrolled_year = models.CharField(max_length=100, null=True, blank=True)
     dept = models.CharField(max_length=100, null=True, blank=True)
     section = models.CharField(max_length=100, null=True, blank=True)
-    students = models.ManyToManyField('Student')
+    students = models.ManyToManyField('Student', blank=True)
 
     class Meta:
         verbose_name_plural = 'Classes'
 
     def __str__(self):
-        return f'{self.enrolled_year}: {self.dept}-{self.section}'
+        return f'{self.dept.upper()}: {self.enrolled_year}-{self.section.upper()}'
     
 
 class Semester(models.Model):
+    id = models.AutoField(primary_key=True)
     class_name = models.ForeignKey('Class', on_delete=models.CASCADE)
     number = models.CharField(max_length=100, null=True, blank=True)
     subjects = models.ManyToManyField('Subject')
+    current = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.number} ({self.subjects})'
+        return f'{self.class_name} - {self.number}'
     
 
 class Subject(models.Model):
-    regulation_year = models.CharField(max_length=10, null=True, blank=True)
     code = models.CharField(primary_key=True, max_length=100)
+    regulation_year = models.CharField(max_length=10, null=True, blank=True)
     name = models.CharField(max_length=100, null=True, blank=True)
     credits = models.CharField(max_length=100, null=True, blank=True)
     # type ---- Theory, Lab, Project
@@ -69,6 +76,7 @@ class Subject(models.Model):
     
 
 class SubjectClass(models.Model):
+    id = models.AutoField(primary_key=True)
     semester = models.ForeignKey('Semester', on_delete=models.CASCADE)
     subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
     class_name = models.ForeignKey('Class', on_delete=models.CASCADE)
@@ -80,6 +88,7 @@ class SubjectClass(models.Model):
 
 
 class TimeTable(models.Model):
+    id = models.AutoField(primary_key=True)
     subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
     date=models.DateField()
     day = models.CharField(choices=(('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'), ('Friday', 'Friday'), ('Saturday', 'Saturday')), max_length=100, null=True, blank=True)
@@ -87,10 +96,5 @@ class TimeTable(models.Model):
     completed = models.BooleanField(default=False)
     
 
-
-class Attendance(models.Model):
-    subject_class = models.ForeignKey('SubjectClass', on_delete=models.CASCADE)
-    student = models.ForeignKey('Student', on_delete=models.CASCADE)
-    date = models.DateField()
-    present = models.BooleanField(default=False)
-    
+    def __str__(self):
+        return f'{self.subject_class} ({self.day}, {self.period})'
